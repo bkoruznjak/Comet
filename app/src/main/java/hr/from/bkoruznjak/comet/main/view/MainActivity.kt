@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         init()
     }
 
-    private fun init(){
+    private fun init() {
         setupToolbar()
         setupNavigationView()
         setupUserScreen()
@@ -53,11 +53,14 @@ class MainActivity : AppCompatActivity() {
             main_drawer.closeDrawers()
             mainViewModel.currentScreenId = (main_navigation.menu as NavigationMenu).findItemIndex(menuItem.itemId)
             screenProvider.goToScreen(mainViewModel.currentScreenId, supportFragmentManager)
+            text_view_title.text = getString(screenProvider.getScreenTitle(mainViewModel.currentScreenId))
             true
         }
-        if (mainViewModel.currentScreenId != HOME_SCREEN){
+        if (mainViewModel.currentScreenId != HOME_SCREEN) {
             main_navigation.menu.getItem(mainViewModel.currentScreenId).isChecked = true
         }
+
+        text_view_title.text = getString(screenProvider.getScreenTitle(mainViewModel.currentScreenId))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -35,6 +35,15 @@ class ScreenFragmentProvider {
         }
     }
 
+    fun getScreenTitle(screenId: Int):Int{
+        return when (screenId) {
+            HOME_SCREEN -> R.string.title_home_fragment
+            LIST_ALL_PLAYERS -> R.string.title_all_players_fragment
+            NEW_PLAYER -> R.string.title_new_player_fragment
+            else -> throw IllegalArgumentException("Unknown screen ID")
+        }
+    }
+
     //Add all screens here with 0 based index values as they are added in menu_main_navigation
     companion object {
         const val DEFAULT_SCREEN_CONTAINER_ID = R.id.screen_container
