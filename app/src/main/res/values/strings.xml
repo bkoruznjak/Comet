@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Comet</string>
+    <string name="side_navigation_option_one">New player</string>
+    <string name="side_navigation_option_two">List all players</string>
 </resources>
