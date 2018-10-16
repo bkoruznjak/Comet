@@ -1,13 +1,373 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".newplayer.view.NewPlayerFragment">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="new player"/>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".newplayer.view.NewPlayerFragment">
 
-</FrameLayout>
+
+        <TextView
+            android:id="@+id/textViewGeneralDataTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="General Data"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineVeritcalThirtyFive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.35" />
+
+        <TextView
+            android:id="@+id/textViewIdTitle"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="bottom"
+            android:text="ID"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVeritcalThirtyFive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewGeneralDataTitle" />
+
+        <EditText
+            android:id="@+id/editTextIdValue"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:clickable="false"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="number"
+            android:textColor="@color/colorText"
+            app:layout_constraintBottom_toBottomOf="@id/textViewIdTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guidelineVeritcalThirtyFive"
+            app:layout_constraintTop_toTopOf="@id/textViewIdTitle" />
+
+        <TextView
+            android:id="@+id/textViewUniqueID"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="bottom"
+            android:text="Unique ID:"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVeritcalThirtyFive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewIdTitle" />
+
+        <EditText
+            android:id="@+id/editTextUniqueIdValue"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="number"
+            android:textColor="@color/colorText"
+            app:layout_constraintBottom_toBottomOf="@id/textViewUniqueID"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guidelineVeritcalThirtyFive"
+            app:layout_constraintTop_toTopOf="@id/textViewUniqueID" />
+
+        <TextView
+            android:id="@+id/textViewFIrstNameTitle"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="bottom"
+            android:text="First Name:"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVeritcalThirtyFive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewUniqueID" />
+
+        <EditText
+            android:id="@+id/editTextFirstNameValue"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorText"
+            app:layout_constraintBottom_toBottomOf="@id/textViewFIrstNameTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guidelineVeritcalThirtyFive"
+            app:layout_constraintTop_toTopOf="@id/textViewFIrstNameTitle" />
+
+        <TextView
+            android:id="@+id/textViewLastNameTitle"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="bottom"
+            android:text="Last Name:"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVeritcalThirtyFive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFIrstNameTitle" />
+
+        <EditText
+            android:id="@+id/editTextLastNameValue"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorText"
+            app:layout_constraintBottom_toBottomOf="@id/textViewLastNameTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guidelineVeritcalThirtyFive"
+            app:layout_constraintTop_toTopOf="@id/textViewLastNameTitle" />
+
+        <TextView
+            android:id="@+id/textViewDateOfBirthTitle"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="bottom"
+            android:text="Date of birth:"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVeritcalThirtyFive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewLastNameTitle" />
+
+        <EditText
+            android:id="@+id/editTextDateOfBirthValue"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="date"
+            android:textColor="@color/colorText"
+            app:layout_constraintBottom_toBottomOf="@id/textViewDateOfBirthTitle"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewDateOfBirthFrom"
+            app:layout_constraintStart_toStartOf="@id/guidelineVeritcalThirtyFive"
+            app:layout_constraintTop_toTopOf="@id/textViewDateOfBirthTitle" />
+
+        <ImageView
+            android:id="@+id/imageViewDateOfBirthFrom"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_date_picker"
+            app:layout_constraintBottom_toBottomOf="@id/textViewDateOfBirthTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/editTextDateOfBirthValue"
+            app:layout_constraintTop_toTopOf="@id/textViewDateOfBirthTitle" />
+
+        <TextView
+            android:id="@+id/textViewPlaceOfBirthTItle"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="bottom"
+            android:text="Place of birth:"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVeritcalThirtyFive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDateOfBirthTitle" />
+
+        <EditText
+            android:id="@+id/editTextPlaceOfBirthValue"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="text"
+            android:textColor="@color/colorText"
+            app:layout_constraintBottom_toBottomOf="@id/textViewPlaceOfBirthTItle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guidelineVeritcalThirtyFive"
+            app:layout_constraintTop_toTopOf="@id/textViewPlaceOfBirthTItle" />
+
+        <TextView
+            android:id="@+id/textViewCountryTitle"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="bottom"
+            android:text="Country:"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVeritcalThirtyFive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPlaceOfBirthTItle" />
+
+        <Spinner
+            android:id="@+id/spinnerCountrySelector"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/textViewCountryTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guidelineVeritcalThirtyFive"
+            app:layout_constraintTop_toTopOf="@id/textViewCountryTitle" />
+
+        <TextView
+            android:id="@+id/textViewRegistrationDataTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="Registration Data"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVeritcalThirtyFive"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCountryTitle" />
+
+        <TextView
+            android:id="@+id/textViewClubTitle"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="bottom"
+            android:text="Club:"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVeritcalThirtyFive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRegistrationDataTitle" />
+
+        <Spinner
+            android:id="@+id/spinnerClubSelector"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/textViewClubTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guidelineVeritcalThirtyFive"
+            app:layout_constraintTop_toTopOf="@id/textViewClubTitle" />
+
+        <TextView
+            android:id="@+id/textViewDateFromTitle"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="bottom"
+            android:text="Date from:"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVeritcalThirtyFive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewClubTitle" />
+
+        <EditText
+            android:id="@+id/editTextDateFromValue"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="date"
+            android:textColor="@color/colorText"
+            app:layout_constraintBottom_toBottomOf="@id/textViewDateFromTitle"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewDateFrom"
+            app:layout_constraintStart_toStartOf="@id/guidelineVeritcalThirtyFive"
+            app:layout_constraintTop_toTopOf="@id/textViewDateFromTitle" />
+
+        <ImageView
+            android:id="@+id/imageViewDateFrom"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_date_picker"
+            app:layout_constraintBottom_toBottomOf="@id/textViewDateFromTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/editTextDateFromValue"
+            app:layout_constraintTop_toTopOf="@id/textViewDateFromTitle" />
+
+        <TextView
+            android:id="@+id/textViewDateTo"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="bottom"
+            android:text="Date to:"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVeritcalThirtyFive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDateFromTitle" />
+
+        <EditText
+            android:id="@+id/editTextDateToValue"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="date"
+            android:textColor="@color/colorText"
+            app:layout_constraintBottom_toBottomOf="@id/textViewDateTo"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewDateTo"
+            app:layout_constraintStart_toStartOf="@id/guidelineVeritcalThirtyFive"
+            app:layout_constraintTop_toTopOf="@id/textViewDateTo" />
+
+        <ImageView
+            android:id="@+id/imageViewDateTo"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_date_picker"
+            app:layout_constraintBottom_toBottomOf="@id/textViewDateTo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/editTextDateToValue"
+            app:layout_constraintTop_toTopOf="@id/textViewDateTo" />
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:text="Save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDateTo" />
+
+        <Button
+            android:id="@+id/buttonEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonSave" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
