@@ -6,7 +6,7 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity
 data class UserDTO(@ColumnInfo(name = "_ID")
-                   @PrimaryKey(autoGenerate = true) val id: Long,
+                   @PrimaryKey(autoGenerate = true) var id: Long = 0,
                    @ColumnInfo(name = "UNIQUE_ID") val uniqueId: String,
                    @ColumnInfo(name = "FIRST_NAME") val firstName: String,
                    @ColumnInfo(name = "LAST_NAME") val lastName: String,

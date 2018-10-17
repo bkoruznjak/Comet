@@ -56,6 +56,13 @@ class NewPlayerFragment : CometFragment() {
                 spinnerCountrySelector.adapter = countryAdapter
             }
         })
+
+        newPlayerViewModel.newPlayer.observe(this, Observer {
+            it?.let {
+                //unlock edit button
+                toast("player inserted $it")
+            }
+        })
     }
 
     override fun onResume() {
