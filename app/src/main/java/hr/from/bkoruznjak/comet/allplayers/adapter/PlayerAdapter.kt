@@ -44,7 +44,7 @@ class PlayerAdapter(private val itemClick: (UserDTO) -> Unit) : RecyclerView.Ada
         fun bind(player: UserDTO) {
             view.textViewPlayerNameValue.text = "${player.firstName} ${player.lastName}"
             view.textViewClubNameValue.text = "${player.club}"
-            view.textViewDateFromDateToValue.text = "Date from:${player.dateFrom} Date to:${player.dateTo}"
+            view.textViewDateFromDateToValue.text = "Date from: ${player.dateFrom} Date to: ${player.dateTo}"
             view.setOnClickListener {
                 it.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
                 itemClick(player)

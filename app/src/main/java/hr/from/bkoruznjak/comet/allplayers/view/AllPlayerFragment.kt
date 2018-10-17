@@ -9,7 +9,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import hr.from.bkoruznjak.comet.R
 import hr.from.bkoruznjak.comet.allplayers.adapter.PlayerAdapter
 import hr.from.bkoruznjak.comet.allplayers.viewmodel.AllPlayersViewModel
@@ -39,6 +40,24 @@ class AllPlayerFragment : CometFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecycler()
         setupDataListeners()
+        setupPlayerSearchListener()
+    }
+
+    private fun setupPlayerSearchListener() {
+        editTextPlayerSearch.setText(allPlayersViewModel.filter, TextView.BufferType.EDITABLE)
+        editTextPlayerSearch.setOnEditorActionListener { view, actionId, _ ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_DONE -> {
+                    searchFor(view)
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun searchFor(searchView: TextView) {
+        allPlayersViewModel.filterPlayersByName(searchView.text)
     }
 
     private fun setupRecycler() {
