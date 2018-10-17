@@ -5,7 +5,6 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,8 @@ import hr.from.bkoruznjak.comet.R
 import hr.from.bkoruznjak.comet.allplayers.adapter.PlayerAdapter
 import hr.from.bkoruznjak.comet.allplayers.viewmodel.AllPlayersViewModel
 import hr.from.bkoruznjak.comet.main.fragments.CometFragment
+import hr.from.bkoruznjak.comet.main.view.MainActivity
+import hr.from.bkoruznjak.comet.newplayer.repository.UserEdit
 import hr.from.bkoruznjak.comet.root.database.model.UserDTO
 import kotlinx.android.synthetic.main.fragment_all_player.*
 import org.jetbrains.anko.support.v4.act
@@ -67,7 +68,8 @@ class AllPlayerFragment : CometFragment() {
     }
 
     private fun openPlayerDetails(clickedPlayer: UserDTO) {
-        Log.d("žžž", "opening details for : $clickedPlayer")
+        UserEdit.clickedPlayer = clickedPlayer
+        (act as MainActivity).goToPlayerDetails()
     }
 
     private fun setupDataListeners() {

@@ -1,16 +1,19 @@
 package hr.from.bkoruznjak.comet.main.view
 
 import android.annotation.SuppressLint
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.internal.NavigationMenu
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
+import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import hr.from.bkoruznjak.comet.R
 import hr.from.bkoruznjak.comet.main.navigation.ScreenFragmentProvider
 import hr.from.bkoruznjak.comet.main.navigation.ScreenFragmentProvider.Companion.HOME_SCREEN
+import hr.from.bkoruznjak.comet.main.navigation.ScreenFragmentProvider.Companion.LIST_ALL_PLAYERS
+import hr.from.bkoruznjak.comet.main.navigation.ScreenFragmentProvider.Companion.NEW_PLAYER
 import hr.from.bkoruznjak.comet.main.viewmodel.MainViewModel
+import hr.from.bkoruznjak.comet.newplayer.repository.UserEdit
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -81,7 +84,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         var fragment: Fragment? = supportFragmentManager.findFragmentById(R.id.screen_container)
-        if (null == fragment) {
+        if (UserEdit.clickedPlayer != null) {
+            backToAllPlayers()
+        } else if (null == fragment) {
             super.onBackPressed()
         } else {
             if (!fragment.childFragmentManager.popBackStackImmediate()) {
@@ -92,10 +97,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     @SuppressLint("RestrictedApi")
-    fun goToScreen(screenId: Int) {
+    fun goToPlayerDetails() {
         main_drawer.closeDrawers()
-        mainViewModel.currentScreenId = screenId
+        mainViewModel.currentScreenId = NEW_PLAYER
         screenProvider.goToScreen(mainViewModel.currentScreenId, supportFragmentManager)
+        text_view_title.text = "COMET Player / Edit Player"
         main_navigation.menu.getItem(mainViewModel.currentScreenId).isChecked = true
     }
+
+    @SuppressLint("RestrictedApi")
+    fun backToAllPlayers() {
+        UserEdit.clickedPlayer = null
+        main_drawer.closeDrawers()
+        mainViewModel.currentScreenId = LIST_ALL_PLAYERS
+        screenProvider.goToScreen(mainViewModel.currentScreenId, supportFragmentManager)
+        text_view_title.text = getString(screenProvider.getScreenTitle(mainViewModel.currentScreenId))
+        main_navigation.menu.getItem(mainViewModel.currentScreenId).isChecked = true
+    }
+
 }

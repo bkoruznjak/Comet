@@ -19,6 +19,8 @@ class NewPlayerViewModel(private val geoRepository: GeoRepository,
 
     private val _newPlayer = MutableLiveData<UserDTO>()
 
+    private val _viewPlayer = MutableLiveData<UserDTO>()
+
     private val _existingPlayer = MutableLiveData<UserDTO>()
 
     val clubs: LiveData<Array<String>>
@@ -33,6 +35,9 @@ class NewPlayerViewModel(private val geoRepository: GeoRepository,
     val existingPlayer: LiveData<UserDTO>
         get() = _existingPlayer
 
+    val playerForView: LiveData<UserDTO>
+        get() = _viewPlayer
+
     fun load() {
         //check local repository
         if (geoRepository.clubList.isNotEmpty()) {
@@ -44,6 +49,10 @@ class NewPlayerViewModel(private val geoRepository: GeoRepository,
         }
         //if empty fire off network request
 
+    }
+
+    fun loadExistingPlayer(playerToView: UserDTO) {
+        _viewPlayer.postValue(playerToView)
     }
 
     fun registerNewPlayer(

@@ -14,6 +14,8 @@ import android.widget.TextView
 import hr.from.bkoruznjak.comet.R
 import hr.from.bkoruznjak.comet.main.fragments.CometFragment
 import hr.from.bkoruznjak.comet.newplayer.model.DateDTO
+import hr.from.bkoruznjak.comet.newplayer.repository.GeoRepository
+import hr.from.bkoruznjak.comet.newplayer.repository.UserEdit
 import hr.from.bkoruznjak.comet.newplayer.viewmodel.NewPlayerViewModel
 import kotlinx.android.synthetic.main.fragment_new_player.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
@@ -24,6 +26,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class NewPlayerFragment : CometFragment() {
 
     private val newPlayerViewModel: NewPlayerViewModel  by viewModel()
+    private var overrideBackPress: Boolean = false
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -69,16 +72,47 @@ class NewPlayerFragment : CometFragment() {
 
         newPlayerViewModel.existingPlayer.observe(this, Observer {
             it?.let {
-                //unlock edit button
                 toast("player ${it.firstName} ${it.lastName} updated")
                 editTextIdValue.setText("${it.id}", TextView.BufferType.EDITABLE)
             }
         })
+
+        newPlayerViewModel.playerForView.observe(this, Observer {
+            it?.let {
+                editTextIdValue.setText("${it.id}", TextView.BufferType.EDITABLE)
+                editTextUniqueIdValue.setText("${it.uniqueId}", TextView.BufferType.EDITABLE)
+                editTextFirstNameValue.setText("${it.firstName}", TextView.BufferType.EDITABLE)
+                editTextLastNameValue.setText("${it.lastName}", TextView.BufferType.EDITABLE)
+                editTextDateOfBirthValue.setText("${it.dateOfBirth}", TextView.BufferType.EDITABLE)
+                editTextPlaceOfBirthValue.setText("${it.placeOfBirth}", TextView.BufferType.EDITABLE)
+                spinnerCountrySelector.setSelection(GeoRepository.countryList.indexOf(it.country))
+                spinnerClubSelector.setSelection(GeoRepository.countryList.indexOf(it.club))
+                editTextDateFromValue.setText("${it.dateFrom}", TextView.BufferType.EDITABLE)
+                editTextDateToValue.setText("${it.dateTo}", TextView.BufferType.EDITABLE)
+                buttonSave.isEnabled = false
+                buttonEdit.isEnabled = true
+            }
+        })
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        UserEdit.clickedPlayer?.let {
+            overrideBackPress = true
+        }
     }
 
     override fun onResume() {
         super.onResume()
         newPlayerViewModel.load()
+        UserEdit.clickedPlayer?.let {
+            newPlayerViewModel.loadExistingPlayer(it)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        overrideBackPress = false
     }
 
     private fun setupOnClickListeners() {
