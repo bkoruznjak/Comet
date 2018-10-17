@@ -9,5 +9,5 @@ import org.koin.dsl.module.module
 val NewPlayerModule: Module = module {
 
     single { GeoRepository }
-    viewModel { NewPlayerViewModel(get()) }
+    viewModel { NewPlayerViewModel(get(), get()) }
 }
