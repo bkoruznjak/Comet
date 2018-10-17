@@ -60,7 +60,18 @@ class NewPlayerFragment : CometFragment() {
         newPlayerViewModel.newPlayer.observe(this, Observer {
             it?.let {
                 //unlock edit button
-                toast("player inserted $it")
+                toast("player ${it.firstName} ${it.lastName} saved")
+                editTextIdValue.setText("${it.id}", TextView.BufferType.EDITABLE)
+                buttonSave.isEnabled = false
+                buttonEdit.isEnabled = true
+            }
+        })
+
+        newPlayerViewModel.existingPlayer.observe(this, Observer {
+            it?.let {
+                //unlock edit button
+                toast("player ${it.firstName} ${it.lastName} updated")
+                editTextIdValue.setText("${it.id}", TextView.BufferType.EDITABLE)
             }
         })
     }
@@ -71,6 +82,7 @@ class NewPlayerFragment : CometFragment() {
     }
 
     private fun setupOnClickListeners() {
+        buttonEdit.isEnabled = false
         imageViewDateOfBirthFrom.onClick {
             it?.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
             showAddNewReminderDateDialog(act) {
@@ -117,19 +129,16 @@ class NewPlayerFragment : CometFragment() {
             it?.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
             tryToSavePlayer()
         }
+
+        buttonEdit.onClick {
+            it?.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
+            updatePlayer()
+        }
     }
 
     private fun tryToSavePlayer() {
-        //EXTRACT STRINGS TO RESOURCES
-        when {
-            editTextUniqueIdValue.text.isNullOrBlank() -> toast("You need to assign an id")
-            editTextFirstNameValue.text.isNullOrBlank() -> toast("You need to assign a first name")
-            editTextLastNameValue.text.isNullOrBlank() -> toast("You need to assign a last name")
-            editTextDateOfBirthValue.text.isNullOrBlank() -> toast("You need to assign a date of birth")
-            editTextPlaceOfBirthValue.text.isNullOrBlank() -> toast("You need to assign a place of birth")
-            editTextDateFromValue.text.isNullOrBlank() -> toast("You need to assign a date from")
-            editTextDateToValue.text.isNullOrBlank() -> toast("You need to assign a date to")
-            else -> newPlayerViewModel.registerNewPlayer(
+        if (hasAllFieldsAssigned()) {
+            newPlayerViewModel.registerNewPlayer(
                     editTextUniqueIdValue.text.toString(),
                     editTextFirstNameValue.text.toString(),
                     editTextLastNameValue.text.toString(),
@@ -141,6 +150,38 @@ class NewPlayerFragment : CometFragment() {
                     editTextDateToValue.text.toString()
             )
         }
+    }
+
+    private fun updatePlayer() {
+        if (hasAllFieldsAssigned()) {
+            newPlayerViewModel.updateExistingPlayer(
+                    editTextIdValue.text.toString(),
+                    editTextUniqueIdValue.text.toString(),
+                    editTextFirstNameValue.text.toString(),
+                    editTextLastNameValue.text.toString(),
+                    editTextDateOfBirthValue.text.toString(),
+                    editTextPlaceOfBirthValue.text.toString(),
+                    spinnerCountrySelector.selectedItem.toString(),
+                    spinnerClubSelector.selectedItem.toString(),
+                    editTextDateFromValue.text.toString(),
+                    editTextDateToValue.text.toString()
+            )
+        }
+    }
+
+    private fun hasAllFieldsAssigned(): Boolean {
+        //EXTRACT STRINGS TO RESOURCES
+        when {
+            editTextUniqueIdValue.text.isNullOrBlank() -> toast("You need to assign an id")
+            editTextFirstNameValue.text.isNullOrBlank() -> toast("You need to assign a first name")
+            editTextLastNameValue.text.isNullOrBlank() -> toast("You need to assign a last name")
+            editTextDateOfBirthValue.text.isNullOrBlank() -> toast("You need to assign a date of birth")
+            editTextPlaceOfBirthValue.text.isNullOrBlank() -> toast("You need to assign a place of birth")
+            editTextDateFromValue.text.isNullOrBlank() -> toast("You need to assign a date from")
+            editTextDateToValue.text.isNullOrBlank() -> toast("You need to assign a date to")
+            else -> return true
+        }
+        return false
     }
 
     private fun showAddNewReminderDateDialog(activity: Activity, caller: (DateDTO) -> Unit) {

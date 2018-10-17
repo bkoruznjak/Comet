@@ -3,6 +3,7 @@ package hr.from.bkoruznjak.comet.newplayer.viewmodel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.util.Log
 import hr.from.bkoruznjak.comet.newplayer.repository.GeoRepository
 import hr.from.bkoruznjak.comet.root.database.dao.UserDao
 import hr.from.bkoruznjak.comet.root.database.model.UserDTO
@@ -18,6 +19,8 @@ class NewPlayerViewModel(private val geoRepository: GeoRepository,
 
     private val _newPlayer = MutableLiveData<UserDTO>()
 
+    private val _existingPlayer = MutableLiveData<UserDTO>()
+
     val clubs: LiveData<Array<String>>
         get() = _clubs
 
@@ -26,6 +29,9 @@ class NewPlayerViewModel(private val geoRepository: GeoRepository,
 
     val newPlayer: LiveData<UserDTO>
         get() = _newPlayer
+
+    val existingPlayer: LiveData<UserDTO>
+        get() = _existingPlayer
 
     fun load() {
         //check local repository
@@ -40,15 +46,16 @@ class NewPlayerViewModel(private val geoRepository: GeoRepository,
 
     }
 
-    fun registerNewPlayer(uniqueId: String,
-                          firstName: String,
-                          lastName: String,
-                          dateOfBirth: String,
-                          placeOfBirth: String,
-                          country: String,
-                          club: String,
-                          dateFrom: String,
-                          dateTo: String) {
+    fun registerNewPlayer(
+            uniqueId: String,
+            firstName: String,
+            lastName: String,
+            dateOfBirth: String,
+            placeOfBirth: String,
+            country: String,
+            club: String,
+            dateFrom: String,
+            dateTo: String) {
 
         doAsync {
             val playerForInsert = UserDTO(uniqueId = uniqueId,
@@ -61,8 +68,38 @@ class NewPlayerViewModel(private val geoRepository: GeoRepository,
                     dateFrom = dateFrom,
                     dateTo = dateTo)
             val id = userDao.insertUser(playerForInsert)
-            val copyWithId = playerForInsert.copy(id = id)
-            uiThread { _newPlayer.postValue(copyWithId) }
+            val copyOfPlayer = playerForInsert.copy(id = id)
+            uiThread { _newPlayer.postValue(copyOfPlayer) }
+        }
+    }
+
+    fun updateExistingPlayer(
+            id: String,
+            uniqueId: String,
+            firstName: String,
+            lastName: String,
+            dateOfBirth: String,
+            placeOfBirth: String,
+            country: String,
+            club: String,
+            dateFrom: String,
+            dateTo: String) {
+
+        doAsync {
+            val playerForUpdate = UserDTO(
+                    id = id.toLong(),
+                    uniqueId = uniqueId,
+                    firstName = firstName,
+                    lastName = lastName,
+                    dateOfBirth = dateOfBirth,
+                    placeOfBirth = placeOfBirth,
+                    country = country,
+                    club = club,
+                    dateFrom = dateFrom,
+                    dateTo = dateTo)
+            val numberOfUpdatedRows = userDao.updateUser(playerForUpdate)
+            Log.d("žžž", "update ok $numberOfUpdatedRows")
+            uiThread { _existingPlayer.postValue(playerForUpdate) }
         }
     }
 }
